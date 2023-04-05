@@ -1,0 +1,97 @@
+body{
+    min-height: 95vh;
+    min-width: 95vw;
+    background-image: url("background.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    box-sizing: border-box;
+}
+.outer{
+    /* border: 1px solid pink; */
+    transform: translate(5%,3%);
+    width: 40vw;
+    height: 80vh;
+}
+.outer div h1{
+    transform: translate(10%,50%);
+    font-size: 90px;
+    font-family: 'Josefin Sans', sans-serif;
+}
+.form{
+    border: 7px solid black;
+    border-radius: 15px;
+    width: 88%;
+    height: 50%;
+    transform: translate(5%,10%);
+    background: silver;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.form h3{
+    font-size: 40px;
+    font-family: 'Josefin Sans', sans-serif;
+}
+.form-box{
+    width: 90%;
+    height: 15%;
+    /* border: 1px solid black; */
+    margin-bottom: 5%;
+}
+.form-box input{
+    width: 75%;
+    height: 40%;
+    margin-left: 1%;
+    transform: translate(10%);
+    font-family: 'Josefin Slab', serif;
+    font-size: 20px;
+    font-weight: bolder;
+}
+.form-box label{
+    font-size: 28px;
+    font-family: 'Josefin Sans', sans-serif;
+    display: block;
+    transform: translate(10%);
+}
+#form-bottom{
+    width: 75%;
+    height: 15%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+#form-bottom div button{
+    padding: 7px 15px 7px 15px;
+    width: 200px;
+    height: 45px;
+    font-size: 20px;
+} 
+#form-bottom #link{
+    width: fit-content;
+    height: fit-content;
+    font-family: 'Josefin Sans', serif;
+    font-size: 18px;
+    font-style: italic;
+    transform: translate(50%,35%);
+}
+#playDiv{
+    position: absolute;
+    transform: translate(75%);
+    width: 20vw;
+    height: 12vh;
+    left: 450px;
+    border: 4px solid black;
+    border-radius: 15px;
+    background-color: silver;
+}
+#playDiv button{
+    border: none;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 48px;
+    background: none;
+    transform: translate(25%,50%);
+}
+#playDiv button:hover{
+    color: #606060;
+}
