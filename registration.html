@@ -10,11 +10,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Josefin+Slab:ital,wght@0,300;0,500;0,600;1,200&display=swap" rel="stylesheet">
 <!--font-family: 'Josefin Sans', sans-serif;-->
+<script
+  src="https://code.jquery.com/jquery-3.6.3.min.js"
+  integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+  crossorigin="anonymous"></script>
 </head>
 <body>
 
 <div id="playDiv">
-    <button>Hrát ihned!</button>
+    <button><a href="">Hrát ihned</a></button>
 </div>
 
     <div class="outer">
@@ -25,16 +29,17 @@
             <h3>Registrace</h3>
                 <div class="form-box">
                     <label for="mail">Email:</label>
-                    <input type="text" name="mail">
+                    <input type="text" name="mail" autocomplete="off">
                 </div>
                 <div class="form-box">
                     <label for="password">Heslo:</label>
-                    <input type="password" name="password">
+                    <input type="password" name="password" autocomplete="off">
                 </div>
                 <div class="form-box">
                     <label for="conf_pass">Confirm heslo:</label>
-                    <input type="password" name="conf_pass">
+                    <input type="password" name="conf_pass" id="conf_pass" autocomplete="off">
                 </div>
+                <span style="display: none;" class="box" > </span>
             <div id="form-bottom">
                 <div>
                     <button> Registrovat se </button>
@@ -45,6 +50,6 @@
             </div>
         </div>
     </div>
-    
+    <script src="regValidation.js"></script>
 </body>
 </html>
