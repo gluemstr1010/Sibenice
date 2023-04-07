@@ -1,37 +1,42 @@
-$(".form-box :input").on("input",function(){
-    validateForm();
+let help;
+$(".form-box :input").on("input",function (){
+let valid = validateForm();
+help = valid;  
 })
+function isValid(valid){
+    return valid;
+}
+$("#btn").click(function(){
+    if(isValid(help))
+    {
+        pstForm();
+    }  
+})
+
 
 var conf_pass_input = $("input[name='conf_pass']")[0];
 conf_pass_input.disabled = true;
 
 function validateForm(){
-
+let valid = false;
     if(!validateMail() || !validatePasses())
     {
         $(".box.success").removeClass("success");
         $(".box").addClass("error");
         $(".box.error").css({"display":"block"});
         $(".box.error").html("Form není validní!");
+        valid  = false;
     }
 
     if( validateMail() & validatePasses() ){
+        
         $(".box.error").removeClass("error");
         $(".box").addClass("success");
         $(".box.success").css({"display":"block"});
         $(".box.success").html("Form je validní!");
-        var mail = $("input[name='mail']")[0].value;
-        var password = $("input[name='password']")[0].value;
-        $.post("/regHandling.php",
-        {
-            mail: mail,
-            password: password,
-        },
-        function(data,status){
-            console.log(data);
-        });
+        valid = true;
     }
-
+return valid;
 }
 
 function validateMail(){
@@ -64,10 +69,13 @@ return valid;
 function validatePasses(){
 let valid = false;
 var password_input = $("input[name='password']")[0];
-conf_pass_input.disabled = true;
+
 
     if(validatePass()){
     conf_pass_input.disabled = false;
+    }else{
+        conf_pass_input.disabled = true;
+        
     }
    
     if(password_input.value === conf_pass_input.value)
@@ -79,4 +87,26 @@ conf_pass_input.disabled = true;
     }
     
     return valid;
+}
+
+function pstForm(){
+
+    var mail = $("input[name='mail']")[0].value;
+        var password = $("input[name='password']")[0].value;
+        $.post("/prace/sibenice/regHandling.php",
+        {
+            mail: mail,
+            password: password,
+        },
+        function(data,status){
+
+            if( data = "mailnotvalid" ){
+                $(".box.success").removeClass("success");
+            $(".box").addClass("error");
+            $(".box.error").css({"display":"block"});
+            $(".box.error").html("E-mail není validní!");
+            }
+
+            });
+
 }

@@ -94,8 +94,13 @@ body{
     background: none;
     transform: translate(25%,50%);
 }
-#playDiv button:hover{
+#playDiv button a{
+    text-decoration: none;
+    color: black;
+}
+#playDiv button a:hover{
     color: #606060;
+    text-decoration: underline;
 }
 .box.error{
     width: fit-content;

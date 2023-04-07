@@ -55,9 +55,6 @@ body{
     display: block;
     transform: translate(10%);
 }
-.form-box #conf_pass{
-
-}
 #form-bottom{
     width: 75%;
     height: 15%;
