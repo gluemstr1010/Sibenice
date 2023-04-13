@@ -1,0 +1,53 @@
+body{
+    min-height: 95vh;
+    min-width: 95vw;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+#letters{
+    border: 1px solid black;
+    width: 96vw;
+    height: 20vh;
+    transform: translate(2%,105%);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.letter{
+    width: 52px;
+    height: 45px;
+    margin: 10px;
+    border: 1px solid black;
+    text-align: center;
+    padding: 5px;
+    margin-top: 25px;
+}
+.letter button{
+    border: none;
+    font-size: 32px;
+    background: none;
+    cursor: pointer;
+}
+#word{
+    width: 55vw;
+    height: 30vw;
+    border: 1px solid black;
+    transform: translate(5%,30%);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+.wordletter{
+    width: 60px;
+    height: 40px;
+    padding: 5px;
+    font-size: 54px;
+}
+.bttm{
+    border-bottom: 1px solid black;
+    margin-right: 15px;
+}
