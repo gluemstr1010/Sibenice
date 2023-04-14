@@ -16,8 +16,8 @@ body{
     justify-content: center;
 }
 .letter{
-    width: 52px;
-    height: 45px;
+    width: 2.6vw;
+    height: 4vh;
     margin: 10px;
     border: 1px solid black;
     text-align: center;
@@ -26,7 +26,7 @@ body{
 }
 .letter button{
     border: none;
-    font-size: 32px;
+    font-size: 1.8vmax;
     background: none;
     cursor: pointer;
 }
@@ -42,12 +42,19 @@ body{
     align-content: center;
 }
 .wordletter{
-    width: 60px;
-    height: 40px;
+    width: 3vw;
+    height: 3.5vh;
     padding: 5px;
-    font-size: 54px;
+    font-size: 250%;
 }
 .bttm{
     border-bottom: 1px solid black;
     margin-right: 15px;
+}
+#image{
+    float: right;
+    width: 35vw;
+    height: 30svw;
+    border: 1px solid black;
+    transform: translate(-10%,30%);
 }

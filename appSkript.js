@@ -20,7 +20,7 @@ $(document).ready(function(){
 
 const alphabet = ["a","b","c","č","d","ď","e","f","g","h","i","j","k","l","m","n","ň","o","p","q","r","ř","s","š","t","ť","u","ů","ú","v","w","x","y","z","ž"];
 let letterbox = document.getElementById("letters");
-
+let buttonArr = [];
 for( let i = 0 ; i < alphabet.length ; i++ )
 {
     const letter =  alphabet[i];
@@ -30,28 +30,56 @@ for( let i = 0 ; i < alphabet.length ; i++ )
     headerLet.innerHTML = letter;
     letterbox.appendChild(divLet);
     divLet.appendChild(headerLet);
-    headerLet.addEventListener("click",function(){ getLetter( letter ) });
+    headerLet.addEventListener("click",function(){ getLetter( letter,headerLet ) });
+    buttonArr.push(headerLet);
 }
 
-function getLetter(letter){
-    
-        for( let j = 0 ; j < getslovo.length ; j++)
+function getLetter(letter,headerLet){
+   
+    let letterArray = returnIndex(getslovo,letter);
+    console.log(letterArray);
+    console.log(headerLet);
+        for( let j = 0 ; j < letterArray.length ; j++)
         {
-            let index = getslovo.indexOf(letter);
-
-            if( index > -1 )
+            for( let i = 0 ; i < wordlettersarray.length; i++ )
             {
-                for( let i = 0 ; i < wordlettersarray.length; i++ )
+                if( letterArray[j] == i )
                 {
-                    if( index == i )
-                    {
-                        wordlettersarray[i].classList.remove("bttm");
-                        wordlettersarray[i].innerHTML = letter;
-                    }
+                    wordlettersarray[i].classList.remove("bttm");
+                    wordlettersarray[i].innerHTML = letter;
                 }
-                index++;
             }
         }
-    
-    
+        for( let k = 0 ; k < buttonArr.length; k++ )
+        {
+            let buttonEl = buttonArr[k];
+
+            if( buttonEl.innerHTML == letter )
+            {
+                buttonEl.disabled = true;
+            }
+        }
+}
+
+function returnIndex(word,letter)
+{
+    let arr = [];
+    let startPos = 0;
+    for( let i = 0 ;i < word.length; i++ )
+    {
+        
+        arr.push(word.indexOf(letter,startPos));
+        startPos++;
+    }
+
+    let newArr = [];
+    for(let i = 0; i < arr.length; i++)
+    {
+        if( !newArr.includes(arr[i]) )
+        {
+            newArr.push(arr[i]);
+        }
+    }
+
+return newArr;
 }
