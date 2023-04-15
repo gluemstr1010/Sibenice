@@ -1,12 +1,15 @@
 let wordbox = document.getElementById("word");
 var getslovo;
+var getslovoId;
 let wordlettersarray = [];
 $(document).ready(function(){
     $.get("/prace/sibenice/getWord.php", function(data,status){
-        let word = data;
-        getslovo = data;
-        console.log(word);
-    for( let i = 0; i < word.length; i++ )
+        let tempArr = data.split("\n");
+        getslovo = tempArr[0];
+        getslovoId = tempArr[1];
+        console.log(getslovo);
+        
+    for( let i = 0; i < getslovo.length; i++ )
     {
         let divwordLet = document.createElement("div");
         divwordLet.classList.add("wordletter");
@@ -21,6 +24,8 @@ $(document).ready(function(){
 const alphabet = ["a","b","c","č","d","ď","e","f","g","h","i","j","k","l","m","n","ň","o","p","q","r","ř","s","š","t","ť","u","ů","ú","v","w","x","y","z","ž"];
 let letterbox = document.getElementById("letters");
 let buttonArr = [];
+let imgArr = ["podlaha.jpg","kopec.jpg","stojan.jpg","opratka.jpg","hlava.jpg","telo.jpg","nohy.jpg","rucedone.jpg"];
+let imgIndex = 0;
 for( let i = 0 ; i < alphabet.length ; i++ )
 {
     const letter =  alphabet[i];
@@ -35,10 +40,33 @@ for( let i = 0 ; i < alphabet.length ; i++ )
 }
 
 function getLetter(letter,headerLet){
-   
     let letterArray = returnIndex(getslovo,letter);
-    console.log(letterArray);
-    console.log(headerLet);
+    
+    // if(imgIndex === 7 )
+    // {
+    //     $.post("/prace/sibenice/appHandler.php",
+    //     {
+    //        word: word
+    //        user: user
+    //     },
+    //     function(data,status)
+    //     {
+
+    //     }
+    //     );
+    // }
+
+    if( letterArray.length == 0 ) 
+    {   
+        while( imgIndex < imgArr.length  )
+        {
+            $("#imgToBePlaced").attr("src",imgArr[imgIndex]);
+            break;
+        }
+        imgIndex++;
+        
+    }else
+    {
         for( let j = 0 ; j < letterArray.length ; j++)
         {
             for( let i = 0 ; i < wordlettersarray.length; i++ )
@@ -59,18 +87,30 @@ function getLetter(letter,headerLet){
                 buttonEl.disabled = true;
             }
         }
+    }
 }
 
 function returnIndex(word,letter)
 {
+
     let arr = [];
     let startPos = 0;
+    let occurence = countOccurence(word,letter);
     for( let i = 0 ;i < word.length; i++ )
     {
         
-        arr.push(word.indexOf(letter,startPos));
-        startPos++;
+        if(occurence == 1)
+        {
+            arr.push(word.indexOf(letter,startPos));
+            break;
+        }else if(occurence > 1)
+        {
+            arr.push(word.indexOf(letter,startPos));
+            startPos++;
+        }
     }
+    console.log(arr);
+
 
     let newArr = [];
     for(let i = 0; i < arr.length; i++)
@@ -81,5 +121,18 @@ function returnIndex(word,letter)
         }
     }
 
-return newArr;
+    return arr;
+}
+function countOccurence(slovo,pismeno){
+    let count = 0;
+
+    for(let i = 0 ; i < slovo.length; i++)
+    {
+        if(slovo[i] == pismeno)
+        {
+            count++;
+        }
+    }
+
+return count;
 }

@@ -57,4 +57,5 @@ body{
     height: 30svw;
     border: 1px solid black;
     transform: translate(-10%,30%);
+    text-align: center;
 }

@@ -1,8 +1,10 @@
 <?php
 include "connection.php";
 
-$isEmailValid = 1;
-$key = "AOphRtRnnjjKuqevClqyYkOsKaZzSGkftej";
+$isEmailValid = 3;
+$keyPass = "AOphRtRnnjjKuqevClqyYkOsKaZzSGkftej";
+$keyId = "xsbIQQCbYowdJXcZhbnSgSmZsCdKJayQMdaNbQTi";
+$keyMail = "GKSmduCNnsaIAbqtuZwKxhXxBbVVeygn";
 
 if( $_SERVER["REQUEST_METHOD"] == "POST" )
 {
@@ -16,10 +18,14 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" )
       if( $row["userMail"] == $email )
       {
         $isEmailValid = 0;
-        echo "mailnotvalid";
+        echo "mailnotvalid"; 
       }
     }
-          
+    if( $isEmailValid !=0 )
+    {
+      $isEmailValid = 1;
+    }
+    
 }
 
 if( $isEmailValid === 1 )
@@ -32,12 +38,28 @@ if( $isEmailValid === 1 )
 
     $email = $_POST["mail"];
     $password = $_POST["password"];
-    $hmc = hash_hmac("sha256",$password,$key);
-    $hsh = password_hash($hmc,PASSWORD_BCRYPT);
+    $hmcPass = hash_hmac("sha256",$password,$keyPass);
+    $hsh = password_hash($hmcPass,PASSWORD_BCRYPT);
     $prpr->execute();
     $prpr->close();
-    header("location:/prace/sibenice/app.html");
+
+    $idqry = "SELECT u.userId FROM users AS u ORDER BY userId DESC LIMIT 1;";
+    $qrysent = mysqli_query($conn,$idqry);
+    $object = mysqli_fetch_object($qrysent);
+    $idUsr = $object->userId;
+
+    $hmcId = hash_hmac("sha256",$idUsr,$keyId);
+    $hshId = password_hash($hmcId,PASSWORD_ARGON2ID);
+
+     $idUserQRY = "INSERT INTO ids(idUsr) VALUES(?);";
+     $prprId = $conn->prepare($idUserQRY);
+     $prprId->bind_param("s",$hshId);
+     $prprId->execute();
+     $prprId->close();
+    // setcookie( "GYdbdiFHvFtmsjPshsinJHqPaZVmRBOk", $hshId, time() + (86400),"/" );
+
     echo "regMade";
 }
+
 
 ?>

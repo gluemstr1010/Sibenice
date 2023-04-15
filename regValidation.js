@@ -99,12 +99,18 @@ function pstForm(){
             password: password,
         },
         function(data,status){
-
-            if( data = "mailnotvalid" ){
+            
+            if( data == "mailnotvalid" ){
                 $(".box.success").removeClass("success");
             $(".box").addClass("error");
             $(".box.error").css({"display":"block"});
             $(".box.error").html("E-mail není validní!");
+            }
+            
+            if(data == "regMade")
+            {
+                console.log("whyfuckingwhy")
+                location.replace("http://localhost:8080/prace/sibenice/app.html");
             }
 
             });
