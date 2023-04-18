@@ -47,18 +47,19 @@ if( $isEmailValid === 1 )
     $qrysent = mysqli_query($conn,$idqry);
     $object = mysqli_fetch_object($qrysent);
     $idUsr = $object->userId;
-
+    
     $hmcId = hash_hmac("sha256",$idUsr,$keyId);
     $hshId = password_hash($hmcId,PASSWORD_ARGON2ID);
 
-     $idUserQRY = "INSERT INTO ids(idUsr) VALUES(?);";
+     $idUserQRY = "INSERT INTO ids(usrId) VALUES(?);";
      $prprId = $conn->prepare($idUserQRY);
      $prprId->bind_param("s",$hshId);
      $prprId->execute();
      $prprId->close();
-    // setcookie( "GYdbdiFHvFtmsjPshsinJHqPaZVmRBOk", $hshId, time() + (86400),"/" );
+    setcookie( "GYdbdiFHvFtmsjPshsinJHqPaZVmRBOk", $hshId, time() + (86400),"/" );
 
     echo "regMade";
+    
 }
 
 

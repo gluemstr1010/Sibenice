@@ -99,7 +99,6 @@ function pstForm(){
             password: password,
         },
         function(data,status){
-            
             if( data == "mailnotvalid" ){
                 $(".box.success").removeClass("success");
             $(".box").addClass("error");
@@ -109,9 +108,9 @@ function pstForm(){
             
             if(data == "regMade")
             {
-                console.log("whyfuckingwhy")
                 location.replace("http://localhost:8080/prace/sibenice/app.html");
             }
+            
 
             });
 

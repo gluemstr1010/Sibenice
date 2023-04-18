@@ -26,6 +26,7 @@ let letterbox = document.getElementById("letters");
 let buttonArr = [];
 let imgArr = ["podlaha.jpg","kopec.jpg","stojan.jpg","opratka.jpg","hlava.jpg","telo.jpg","nohy.jpg","rucedone.jpg"];
 let imgIndex = 0;
+let wordIndex = 1;
 for( let i = 0 ; i < alphabet.length ; i++ )
 {
     const letter =  alphabet[i];
@@ -38,23 +39,40 @@ for( let i = 0 ; i < alphabet.length ; i++ )
     headerLet.addEventListener("click",function(){ getLetter( letter,headerLet ) });
     buttonArr.push(headerLet);
 }
-
 function getLetter(letter,headerLet){
     let letterArray = returnIndex(getslovo,letter);
+    var user = $.cookie('GYdbdiFHvFtmsjPshsinJHqPaZVmRBOk');
     
-    // if(imgIndex === 7 )
-    // {
-    //     $.post("/prace/sibenice/appHandler.php",
-    //     {
-    //        word: word
-    //        user: user
-    //     },
-    //     function(data,status)
-    //     {
-
-    //     }
-    //     );
-    // }
+    if(imgIndex === 7 )
+    {
+        let didLose = true;
+        $.post("/prace/sibenice/appHandler.php",
+        {
+           wordId:getslovo,
+           userId:user,
+           game:didLose
+        },
+        function(data,status)
+        {
+            console.log(data);
+        }
+        );
+    }
+    if( wordIndex === getslovo.length )
+       {
+        let didLose = false;
+            $.post("/prace/sibenice/appHandler.php",
+            {
+            wordId:getslovo,
+            userId:user,
+            game:didLose
+            },
+            function(data,status)
+            {
+                console.log(data);
+            }
+            );
+       }
 
     if( letterArray.length == 0 ) 
     {   
@@ -67,6 +85,7 @@ function getLetter(letter,headerLet){
         
     }else
     {
+        wordIndex++;
         for( let j = 0 ; j < letterArray.length ; j++)
         {
             for( let i = 0 ; i < wordlettersarray.length; i++ )
@@ -87,6 +106,7 @@ function getLetter(letter,headerLet){
                 buttonEl.disabled = true;
             }
         }
+        
     }
 }
 
@@ -109,9 +129,6 @@ function returnIndex(word,letter)
             startPos++;
         }
     }
-    console.log(arr);
-
-
     let newArr = [];
     for(let i = 0; i < arr.length; i++)
     {
@@ -136,3 +153,4 @@ function countOccurence(slovo,pismeno){
 
 return count;
 }
+
