@@ -42,37 +42,38 @@ for( let i = 0 ; i < alphabet.length ; i++ )
 function getLetter(letter,headerLet){
     let letterArray = returnIndex(getslovo,letter);
     var user = $.cookie('GYdbdiFHvFtmsjPshsinJHqPaZVmRBOk');
-    
-    if(imgIndex === 7 )
-    {
-        let didLose = true;
-        $.post("/prace/sibenice/appHandler.php",
-        {
-           wordId:getslovo,
-           userId:user,
-           game:didLose
-        },
-        function(data,status)
-        {
-            console.log(data);
-        }
-        );
-    }
-    if( wordIndex === getslovo.length )
-       {
-        let didLose = false;
-            $.post("/prace/sibenice/appHandler.php",
-            {
-            wordId:getslovo,
-            userId:user,
-            game:didLose
-            },
-            function(data,status)
-            {
-                console.log(data);
-            }
-            );
-       }
+    // if(imgIndex === 7 )
+    // {
+    //     let didLose = true;
+    //     $.post("/prace/sibenice/appHandler.php",
+    //     {
+    //        wordId:getslovo,
+    //        userId:user,
+    //        game:didLose
+    //     },
+    //     function(data,status)
+    //     {
+    //         console.log(data);
+    //     }
+    //     );
+    // }
+
+    // if( wordIndex === getslovo.length )
+    //    {
+        
+    //     let didLose = false;
+    //         $.post("/prace/sibenice/appHandler.php",
+    //         {
+    //         wordId:getslovo,
+    //         userId:user,
+    //         game:didLose
+    //         },
+    //         function(data,status)
+    //         {
+    //             console.log(data);
+    //         }
+    //         );
+    //    }
 
     if( letterArray.length == 0 ) 
     {   
@@ -85,7 +86,7 @@ function getLetter(letter,headerLet){
         
     }else
     {
-        wordIndex++;
+        wordIndex += letterArray.length;
         for( let j = 0 ; j < letterArray.length ; j++)
         {
             for( let i = 0 ; i < wordlettersarray.length; i++ )
@@ -138,7 +139,7 @@ function returnIndex(word,letter)
         }
     }
 
-    return arr;
+    return newArr;
 }
 function countOccurence(slovo,pismeno){
     let count = 0;

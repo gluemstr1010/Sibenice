@@ -15,13 +15,17 @@ function validateLogin(){
     },
     function(data,status){
         console.log(data);
-        // if( data == "passwordsdonotmatch" && status == "success")
-        // {
-        //     console.log(data, status)
-        //     $(".box").addClass("error");
-        //     $(".box.error").css({"display":"block"});
-        //     $(".box.error").html("Špatné údaje!");
-        // }
+        if( data == "passwordsdonotmatch")
+        {
+            console.log(data, status)
+            $(".box").addClass("error");
+            $(".box.error").css({"display":"block"});
+            $(".box.error").html("Špatné údaje!");
+        }
+        if( data == "passwordsmatch" )
+        {
+            location.replace("http://localhost:8080/prace/sibenice/app.html");
+        }
     });
 
 }
