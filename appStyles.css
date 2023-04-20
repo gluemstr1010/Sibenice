@@ -59,3 +59,27 @@ body{
     transform: translate(-10%,30%);
     text-align: center;
 }
+#onFinishedGame{
+    width: 95vw;
+    height: 95vh;
+    position: absolute;
+    transform: translate(2.5%,2.5%);
+    background-color: brown;
+    z-index: 999;
+}
+#btnWhattoDo
+{
+    width: 40%;
+    height: 29%;
+    background-color: blue;
+    transform: translate(75%,75%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.choice{
+    width: 40%;
+    height: 45%;
+    background-color: yellow;
+    margin:5%;
+}

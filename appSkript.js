@@ -2,6 +2,8 @@ let wordbox = document.getElementById("word");
 var getslovo;
 var getslovoId;
 let wordlettersarray = [];
+let wonorlostheader = document.getElementById("wonorlost");
+let onFinishedGameelement = document.getElementById('onFinishedGame');
 $(document).ready(function(){
     $.get("/prace/sibenice/getWord.php", function(data,status){
         let tempArr = data.split("\n");
@@ -42,38 +44,49 @@ for( let i = 0 ; i < alphabet.length ; i++ )
 function getLetter(letter,headerLet){
     let letterArray = returnIndex(getslovo,letter);
     var user = $.cookie('GYdbdiFHvFtmsjPshsinJHqPaZVmRBOk');
-    // if(imgIndex === 7 )
-    // {
-    //     let didLose = true;
-    //     $.post("/prace/sibenice/appHandler.php",
-    //     {
-    //        wordId:getslovo,
-    //        userId:user,
-    //        game:didLose
-    //     },
-    //     function(data,status)
-    //     {
-    //         console.log(data);
-    //     }
-    //     );
-    // }
-
-    // if( wordIndex === getslovo.length )
-    //    {
+    
+    if(imgIndex === 7 )
+    {
+        wonorlostheader.innerHTML = "Prohrál jsi!";
+        wonorlostheader.style.display = "block";
+        if(user != undefined)
+        {
+           let didLose = true;
+            $.post("/prace/sibenice/appHandler.php",
+            {
+            wordId:getslovo,
+            userId:user,
+            game:didLose
+            },
+            function(data,status)
+            {
+                console.log(data);
+            }
+            ); 
+        }    
         
-    //     let didLose = false;
-    //         $.post("/prace/sibenice/appHandler.php",
-    //         {
-    //         wordId:getslovo,
-    //         userId:user,
-    //         game:didLose
-    //         },
-    //         function(data,status)
-    //         {
-    //             console.log(data);
-    //         }
-    //         );
-    //    }
+    }
+
+    if( wordIndex === getslovo.length )
+       {
+          wonorlostheader.innerHTML = "Vyhrál jsi!";
+          wonorlostheader.style.display = "block";
+          if( user != undefined )
+          {
+            let didLose = false;
+            $.post("/prace/sibenice/appHandler.php",
+            {
+            wordId:getslovo,
+            userId:user,
+            game:didLose
+            },
+            function(data,status)
+            {
+                console.log(data);
+            }
+            );
+          }
+       }
 
     if( letterArray.length == 0 ) 
     {   
