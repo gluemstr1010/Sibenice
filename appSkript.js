@@ -4,6 +4,7 @@ var getslovoId;
 let wordlettersarray = [];
 let wonorlostheader = document.getElementById("wonorlost");
 let onFinishedGameelement = document.getElementById('onFinishedGame');
+let btnsel = document.getElementById("btnWhattoDo");
 $(document).ready(function(){
     $.get("/prace/sibenice/getWord.php", function(data,status){
         let tempArr = data.split("\n");
@@ -47,8 +48,13 @@ function getLetter(letter,headerLet){
     
     if(imgIndex === 7 )
     {
+        onFinishedGameelement.style.display = "initial";
+        let addwordel = document.getElementById("addWord");
+        addwordel.addEventListener("click",function(){
+            onFinishedGameelement.removeChild(btnsel);
+            showAddwordEl();
+        });
         wonorlostheader.innerHTML = "Prohrál jsi!";
-        wonorlostheader.style.display = "block";
         if(user != undefined)
         {
            let didLose = true;
@@ -70,7 +76,7 @@ function getLetter(letter,headerLet){
     if( wordIndex === getslovo.length )
        {
           wonorlostheader.innerHTML = "Vyhrál jsi!";
-          wonorlostheader.style.display = "block";
+
           if( user != undefined )
           {
             let didLose = false;
@@ -86,6 +92,7 @@ function getLetter(letter,headerLet){
             }
             );
           }
+
        }
 
     if( letterArray.length == 0 ) 
@@ -164,7 +171,56 @@ function countOccurence(slovo,pismeno){
             count++;
         }
     }
-
 return count;
+}
+function showAddwordEl()
+{
+    let backgrnd = document.createElement("div");
+    backgrnd.setAttribute("id","btnWhattoDo");
+    backgrnd.style.flexDirection = "column";
+    onFinishedGameelement.appendChild(backgrnd);
+    let inpt = document.createElement("input");
+    let spn = document.createElement("span");
+    let sbmitbtn = document.createElement("button");
+    sbmitbtn.innerHTML = "Přidat do databáze!";
+    backgrnd.appendChild(inpt);
+    backgrnd.appendChild(spn);
+    backgrnd.appendChild(sbmitbtn);
+    sbmitbtn.addEventListener("click",function(){
+        let inptval = inpt.value;
+
+        if( inptval.length > 0 & inptval.length < 34 )
+        {
+            if(!containsWhitespace(inptval))
+            {
+                sendWord(inptval,spn);
+            }
+        }
+    })
+}
+function sendWord(slovo,spn)
+{
+    $.post("/prace/sibenice/wordHandler.php",
+    {
+        word: slovo
+    },function(data,status){
+        if( data == "wordexists" )
+        {
+            spn.removeAttribute("id","success");
+            spn.setAttribute("id","error");
+            spn.innerHTML = "Dané slovo už v databázi je!";
+            spn.style.display = "initial";
+        }
+        if( data == "wordinserted" )
+        {
+            spn.removeAttribute("id","error");
+            spn.setAttribute("id","success");
+            spn.innerHTML = "Slovo bylo Přidáno do databáze!";
+            spn.style.display = "initial";
+        }
+    })
+}
+function containsWhitespace(str) {
+    return /\s/.test(str);
 }
 

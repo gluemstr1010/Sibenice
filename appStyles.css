@@ -60,26 +60,157 @@ body{
     text-align: center;
 }
 #onFinishedGame{
-    width: 95vw;
-    height: 95vh;
+    width: 100vw;
+    height: 100vh;
     position: absolute;
-    transform: translate(2.5%,2.5%);
     background-color: brown;
     z-index: 999;
+    text-align: center;
+    display: none;
+}
+#wonorlost{
+    z-index: 999;
+    transform: translateY(50%);
+    font-size: 5vmax;
 }
 #btnWhattoDo
 {
-    width: 40%;
-    height: 29%;
-    background-color: blue;
-    transform: translate(75%,75%);
+    width: 45%;
+    height: 35%;
+    background-color: gray;
+    transform: translate(60%,35%);
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 6px solid black;
+    border-radius: 16px;
 }
 .choice{
-    width: 40%;
-    height: 45%;
-    background-color: yellow;
+    width: 50%;
+    height: 55%;
+    background-color: snow;
+    border-radius: 16px;
     margin:5%;
+    transition-duration: 0.6s;
+    text-align: center;
+}
+.choice:hover
+{
+    box-shadow: 5px 5px 15px 15px whitesmoke;
+}
+.choice a{
+    text-decoration: none;
+    color: black;
+    font-size: 2.2vmax;
+    display: block;
+    margin-top: 18%;
+    font-family: 'Josefin Sans', sans-serif;
+}
+.choice a:hover{
+    text-decoration: underline;
+    color:  #606060;
+    cursor: pointer;
+}
+#btnWhattoDo input
+{
+    width: 80%;
+    height: 15%;
+    display: block;
+    border-radius: 12px;
+    font-size: 1.6vmax;
+}
+#btnWhattoDo span
+{
+    width: fit-content;
+    height: 5%;
+    border-radius: 16px;
+    font-size: 1vmax;
+    display: none;
+    margin-top: 5%;
+    overflow: hidden;
+}
+#btnWhattoDo button
+{
+    width: 50%;
+    height: 17%;
+    font-size: 1.8vmax;
+    display: block;
+    margin-top: 10%;
+    border-radius: 12px;
+    background: snow;
+    transition-duration: 0.6s;
+}
+#btnWhattoDo button:hover
+{
+    box-shadow: 5px 5px 10px 10px whitesmoke;
+    cursor: pointer;
+}
+#btnWhattoDo span#error{
+    color: #ce2029;
+    padding: 7px 10px 10px 7px;
+    background-color: rgb(247, 162, 162);
+    animation: fadeOut 3.5s;
+    -webkit-animation: fadeOut 3.5s;
+  -moz-animation: fadeOut 3.5s;
+  -o-animation: fadeOut 3.5s;
+  -ms-animation: fadeOut 3.5s;
+}
+#btnWhattoDo span#success{
+    color: #228b22;
+    padding: 7px 10px 10px 7px;
+    background-color:#98fb98;
+    animation: fadeOut 3.5s;
+    -webkit-animation: fadeOut 3.5s;
+  -moz-animation: fadeOut 3.5s;
+  -o-animation: fadeOut 3.5s;
+  -ms-animation: fadeOut 3.5s;
+}
+@keyframes fadeOut {
+    100%{
+        opacity: 0;
+        visibility: hidden;
+    }
+    0%{
+        opacity: 1;
+    }
+}
+  
+@-moz-keyframes fadeOut {
+    100%{
+        opacity: 0;
+        visibility: hidden;
+    }
+    0%{
+        opacity: 1;
+    }
+}
+  
+@-webkit-keyframes fadeOut {
+    100%{
+        opacity: 0;
+        visibility: hidden;
+    }
+    0%{
+        opacity: 1;
+    }
+}
+  
+@-o-keyframes fadeOut {
+    100%{
+        opacity: 0;
+        visibility: hidden;
+    }
+    0%{
+        opacity: 1;
+    }
+}
+  
+@-ms-keyframes fadeOut {
+    100%{
+        opacity: 0;
+        visibility: hidden;
+    }
+    0%{
+        opacity: 1;
+    }
 }
