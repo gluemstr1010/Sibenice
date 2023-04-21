@@ -6,6 +6,7 @@ let wonorlostheader = document.getElementById("wonorlost");
 let onFinishedGameelement = document.getElementById('onFinishedGame');
 let btnsel = document.getElementById("btnWhattoDo");
 $(document).ready(function(){
+    var user = $.cookie('GYdbdiFHvFtmsjPshsinJHqPaZVmRBOk');
     $.get("/prace/sibenice/getWord.php", function(data,status){
         let tempArr = data.split("\n");
         getslovo = tempArr[0];
@@ -22,6 +23,15 @@ $(document).ready(function(){
     }
     
     } )
+    if( user != undefined )
+    {
+        $.post("/prace/sibenice/getStat.php",
+        {
+            idUsr:user
+        },function(data,status){
+            console.log(data);
+        })
+    }
 })
 
 const alphabet = ["a","b","c","č","d","ď","e","f","g","h","i","j","k","l","m","n","ň","o","p","q","r","ř","s","š","t","ť","u","ů","ú","v","w","x","y","z","ž"];
