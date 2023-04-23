@@ -1,12 +1,15 @@
 body{
     min-height: 95vh;
     min-width: 95vw;
+    background: url("darkclouds.jpg") no-repeat center center fixed;
+    background-size: cover;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 #letters{
-    border: 1px solid black;
+    border: 7px solid #fffaf0;
+    border-radius: 16px;
     width: 96vw;
     height: 20vh;
     transform: translate(2%,40%);
@@ -14,38 +17,48 @@ body{
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+    background-color: #B0B0B0;
 }
 .letter{
     width: 2.6vw;
     height: 4vh;
-    margin: 10px;
+    margin: 15px;
     border: 1px solid black;
+    border-radius: 35%;
     text-align: center;
-    padding: 5px;
+    padding: 7px;
     margin-top: 25px;
+    background-color: snow;
+    transition-duration: 0.45s;
 }
 .letter button{
     border: none;
     font-size: 1.8vmax;
     background: none;
     cursor: pointer;
+    font-family: 'Josefin Sans', sans-serif;
+}
+.letter:hover{
+    box-shadow: 5px 5px 10px 10px #cfcecc;
 }
 #word{
     width: 55vw;
     height: 30vw;
-    border: 1px solid black;
+    border: 7px solid #fffaf0;
     transform: translate(5%,5%);
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     align-content: center;
+    background-color: #B0B0B0;
 }
 .wordletter{
-    width: 3vw;
-    height: 3.5vh;
+    width: 4vw;
+    height: 5vh;
     padding: 5px;
-    font-size: 250%;
+    font-size: 4vmax;
+    font-family: 'Josefin Sans', sans-serif;
 }
 .bttm{
     border-bottom: 1px solid black;
@@ -64,11 +77,21 @@ body{
     height: 10vh;
     border: 1px solid black;
     transform: translate(35%,10%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: white;
+}
+#statForWord p{
+    font-size: 1.2max;
 }
 #getMoreStats{
     position: fixed;
     width: 18vw;
     height: 10vh;
+    max-width: 22vw;
+    max-height: 14vh;
     border: 1px solid black;
     right: 0;
     top: 0;
@@ -76,20 +99,43 @@ body{
     text-align: center;
     padding-left: 7px;
     padding-right: 7px;
+    font-size: 0.9vmax;
+    background-color: white;
+}
+#getMoreStats h1:hover{
+text-decoration: underline;
+cursor: pointer;
+}
+#statsLeave
+{
+    width: 26vw;
+    height: 8vw;
+    border: 1px solid black;
+    transform: translate(22%,20%);
+    font-size: 2vmax;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#statsLeave h1:hover
+{
+text-decoration: underline;
+cursor: pointer;
 }
 #onFinishedGame{
     width: 100vw;
     height: 100vh;
     position: absolute;
-    background-color: brown;
     z-index: 999;
     text-align: center;
     display: none;
 }
 #wonorlost{
     z-index: 999;
-    transform: translateY(50%);
+    transform: translateY(80%);
     font-size: 5vmax;
+    font-family: 'Josefin Sans', sans-serif;
+    color: black;
 }
 #btnWhattoDo
 {

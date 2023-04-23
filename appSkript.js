@@ -5,13 +5,59 @@ let wordlettersarray = [];
 let wonorlostheader = document.getElementById("wonorlost");
 let onFinishedGameelement = document.getElementById('onFinishedGame');
 let btnsel = document.getElementById("btnWhattoDo");
+var usr = $.cookie('GYdbdiFHvFtmsjPshsinJHqPaZVmRBOk');
+let getStatsEl = document.getElementById("getStats")
+getStatsEl.addEventListener("click",function(){
+    let outer = document.getElementById("outer");
+    document.body.removeChild(outer);
+    $.post("/prace/sibenice/getStats.php",
+    {
+        idUser:usr
+    },function(data,status){
+        let leave = document.createElement("div");
+        leave.setAttribute("id","statsLeave");
+        let levhed = document.createElement("h1");
+        levhed.innerHTML = "Hrát znovu";
+        levhed.addEventListener("click",function()
+        {
+            location.replace("http://localhost:8080/prace/sibenice/app.html");
+        })
+        document.body.appendChild(leave);
+        leave.appendChild(levhed);
+        
+        const jsonArr = JSON.parse(data);
+        const columnArr = ["Word","Won game","Lost game"];
+        let table = document.createElement("table");
+        let row = document.createElement("tr");
+        document.body.appendChild(table);
+        table.appendChild(row);
+        for(let i =0; i < columnArr.length; i++)
+        {
+            let column = document.createElement("th");
+            column.innerHTML = columnArr[i];
+            row.appendChild(column);
+        }
+        for(let i = 0; i< jsonArr.length ; i++)
+        {
+            let r = document.createElement("tr");
+            table.appendChild(r);
+            let column = document.createElement("th");
+            column.innerHTML = jsonArr[i].word;
+            let colu = document.createElement("th");
+            colu.innerHTML = jsonArr[i].wonGame;
+            let col = document.createElement("th");
+            col.innerHTML = jsonArr[i].lostGame;
+            r.appendChild(column);r.appendChild(colu);r.appendChild(col);
+        }
+        
+    })
+})
 $(document).ready(function(){
-    var user = $.cookie('GYdbdiFHvFtmsjPshsinJHqPaZVmRBOk');
+    
     $.get("/prace/sibenice/getWord.php", function(data,status){
         let tempArr = data.split("\n");
         getslovo = tempArr[0];
         getslovoId = tempArr[1];
-        console.log(getslovo);
         
     for( let i = 0; i < getslovo.length; i++ )
     {
@@ -21,18 +67,37 @@ $(document).ready(function(){
         wordbox.appendChild(divwordLet);
         wordlettersarray.push(divwordLet);
     }
-    
-    } )
-    if( user != undefined )
+
+    if( usr != undefined )
     {
+        console.log(getslovo);
         $.post("/prace/sibenice/getStat.php",
         {
-            idUsr:user
+            idUsr:usr,
+            word:getslovo
         },function(data,status){
-            console.log(data);
+            let back = document.getElementById("statForWord");
+            let won = document.createElement("p");
+            let lost = document.createElement("p");
+            back.appendChild(won);
+            back.appendChild(lost);
+            if(data == "")
+            {
+                won.innerHTML = "Nejsou žádné statistiky pro dané slovo!";
+            }
+            else
+            {
+                const statObj = JSON.parse(data);
+                    won.innerHTML = "Vyhrané hry:" + statObj.wonGame;
+                    lost.innerHTML = "Prohrané hry:" + statObj.lostGame;
+            }
         })
     }
+
+    } )
 })
+
+
 
 const alphabet = ["a","b","c","č","d","ď","e","f","g","h","i","j","k","l","m","n","ň","o","p","q","r","ř","s","š","t","ť","u","ů","ú","v","w","x","y","z","ž"];
 let letterbox = document.getElementById("letters");
@@ -40,6 +105,7 @@ let buttonArr = [];
 let imgArr = ["podlaha.jpg","kopec.jpg","stojan.jpg","opratka.jpg","hlava.jpg","telo.jpg","nohy.jpg","rucedone.jpg"];
 let imgIndex = 0;
 let wordIndex = 1;
+
 for( let i = 0 ; i < alphabet.length ; i++ )
 {
     const letter =  alphabet[i];
@@ -79,13 +145,18 @@ function getLetter(letter,headerLet){
                 console.log(data);
             }
             ); 
-        }    
-        
+        }       
     }
 
     if( wordIndex === getslovo.length )
        {
-          wonorlostheader.innerHTML = "Vyhrál jsi!";
+        onFinishedGameelement.style.display = "initial";
+        let addwordel = document.getElementById("addWord");
+        addwordel.addEventListener("click",function(){
+            onFinishedGameelement.removeChild(btnsel);
+            showAddwordEl();
+        });
+        wonorlostheader.innerHTML = "Vyhrál jsi!";
 
           if( user != undefined )
           {
@@ -102,7 +173,6 @@ function getLetter(letter,headerLet){
             }
             );
           }
-
        }
 
     if( letterArray.length == 0 ) 
@@ -113,7 +183,6 @@ function getLetter(letter,headerLet){
             break;
         }
         imgIndex++;
-        
     }else
     {
         wordIndex += letterArray.length;
@@ -137,10 +206,8 @@ function getLetter(letter,headerLet){
                 buttonEl.disabled = true;
             }
         }
-        
     }
 }
-
 function returnIndex(word,letter)
 {
 
@@ -168,7 +235,6 @@ function returnIndex(word,letter)
             newArr.push(arr[i]);
         }
     }
-
     return newArr;
 }
 function countOccurence(slovo,pismeno){
