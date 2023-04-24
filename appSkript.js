@@ -7,6 +7,7 @@ let onFinishedGameelement = document.getElementById('onFinishedGame');
 let btnsel = document.getElementById("btnWhattoDo");
 var usr = $.cookie('GYdbdiFHvFtmsjPshsinJHqPaZVmRBOk');
 let getStatsEl = document.getElementById("getStats")
+let getMorestats = document.getElementById("getMoreStats");
 getStatsEl.addEventListener("click",function(){
     let outer = document.getElementById("outer");
     document.body.removeChild(outer);
@@ -53,7 +54,10 @@ getStatsEl.addEventListener("click",function(){
     })
 })
 $(document).ready(function(){
-    
+    if(usr != undefined)
+    {
+        getMorestats.style.display = "initial";
+    }
     $.get("/prace/sibenice/getWord.php", function(data,status){
         let tempArr = data.split("\n");
         getslovo = tempArr[0];
@@ -68,6 +72,9 @@ $(document).ready(function(){
         wordlettersarray.push(divwordLet);
     }
 
+    let back = document.getElementById("statForWord");
+     let won = document.createElement("p");
+     let lost = document.createElement("p");
     if( usr != undefined )
     {
         console.log(getslovo);
@@ -76,22 +83,26 @@ $(document).ready(function(){
             idUsr:usr,
             word:getslovo
         },function(data,status){
-            let back = document.getElementById("statForWord");
-            let won = document.createElement("p");
-            let lost = document.createElement("p");
-            back.appendChild(won);
-            back.appendChild(lost);
+            
             if(data == "")
             {
+                back.appendChild(won);
                 won.innerHTML = "Nejsou žádné statistiky pro dané slovo!";
             }
             else
             {
+                back.appendChild(won);
+                back.appendChild(lost);
                 const statObj = JSON.parse(data);
                     won.innerHTML = "Vyhrané hry:" + statObj.wonGame;
                     lost.innerHTML = "Prohrané hry:" + statObj.lostGame;
             }
         })
+    }
+    if( usr == undefined )
+    {
+        back.appendChild(won);
+        won.innerHTML = "Pro zálohování statistik se zaregistrujte!";
     }
 
     } )
@@ -258,10 +269,13 @@ function showAddwordEl()
     let inpt = document.createElement("input");
     let spn = document.createElement("span");
     let sbmitbtn = document.createElement("button");
+    let btnPlayegajn = document.createElement("button");
+    btnPlayegajn.innerHTML = "Hrát znovu!";
     sbmitbtn.innerHTML = "Přidat do databáze!";
     backgrnd.appendChild(inpt);
     backgrnd.appendChild(spn);
     backgrnd.appendChild(sbmitbtn);
+    backgrnd.appendChild(btnPlayegajn);
     sbmitbtn.addEventListener("click",function(){
         let inptval = inpt.value;
 
@@ -272,6 +286,9 @@ function showAddwordEl()
                 sendWord(inptval,spn);
             }
         }
+    })
+    btnPlayegajn.addEventListener("click",function(){
+        location.replace("http://localhost:8080/prace/sibenice/app.html");
     })
 }
 function sendWord(slovo,spn)
