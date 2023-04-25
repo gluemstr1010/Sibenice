@@ -116,20 +116,24 @@ let buttonArr = [];
 let imgArr = ["podlaha.jpg","kopec.jpg","stojan.jpg","opratka.jpg","hlava.jpg","telo.jpg","nohy.jpg","rucedone.jpg"];
 let imgIndex = 0;
 let wordIndex = 1;
+let letterdivArr = [];
 
 for( let i = 0 ; i < alphabet.length ; i++ )
 {
     const letter =  alphabet[i];
     let divLet = document.createElement("div");
     divLet.classList.add("letter");
+    divLet.classList.add("stin");
     let headerLet = document.createElement("button");
     headerLet.innerHTML = letter;
     letterbox.appendChild(divLet);
     divLet.appendChild(headerLet);
     headerLet.addEventListener("click",function(){ getLetter( letter,headerLet ) });
     buttonArr.push(headerLet);
+    letterdivArr.push(divLet);
 }
 function getLetter(letter,headerLet){
+    getslovo = getslovo.toLowerCase();
     let letterArray = returnIndex(getslovo,letter);
     var user = $.cookie('GYdbdiFHvFtmsjPshsinJHqPaZVmRBOk');
     
@@ -193,6 +197,15 @@ function getLetter(letter,headerLet){
             $("#imgToBePlaced").attr("src",imgArr[imgIndex]);
             break;
         }
+        for( let i = 0; i < letterdivArr.length; i++ )
+        {
+            let btnEl = buttonArr[i];
+            if( btnEl.innerHTML == letter )
+            {
+                btnEl.disabled = "true";
+                letterdivArr[i].classList.remove("stin");
+            }
+        }
         imgIndex++;
     }else
     {
@@ -211,10 +224,12 @@ function getLetter(letter,headerLet){
         for( let k = 0 ; k < buttonArr.length; k++ )
         {
             let buttonEl = buttonArr[k];
+            let divletterEl = letterdivArr[k];
 
             if( buttonEl.innerHTML == letter )
             {
                 buttonEl.disabled = true;
+                divletterEl.classList.remove("stin");
             }
         }
     }

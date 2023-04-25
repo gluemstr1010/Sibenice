@@ -52,7 +52,7 @@ tr,th
     cursor: pointer;
     font-family: 'Josefin Sans', sans-serif;
 }
-.letter:hover{
+.letter.stin:hover{
     box-shadow: 5px 5px 10px 10px #cfcecc;
 }
 #word{

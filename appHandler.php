@@ -32,54 +32,64 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" )
             $wordId = $row["wordId"];
          }
       }
-         
-         $checkCount = "SELECT COUNT(wordId), userId, wonGame, lostGame, wordId FROM statistics WHERE wordId = '$wordId';";
-         $rs = mysqli_query($conn,$checkCount);
-         while($row = $rs->fetch_array()) {
-            $hmcuserId = hash_hmac("sha256",$row["userId"],$key);   
-            if($row['COUNT(wordId)'] == "0")
+
+         $qry = "SELECT * FROM statistics WHERE (wordId = '$wordId' AND userId = '$idUser');";
+         $qryres = mysqli_query($conn,$qry);
+         $count = mysqli_num_rows($qryres);
+         echo $count;
+
+         if( $count == 0 )
             {
-                  if( $game === "false" )
-                  {   
-                  $prprUpdate = $conn->prepare("INSERT INTO statistics(wonGame,userId,wordId) VALUES(wonGame+1,?,?);");
+               if( $game === "false" )
+               { 
+               $prprUpdate = $conn->prepare("INSERT INTO statistics(wonGame,userId,wordId) VALUES(wonGame+1,?,?);");
+               $prprUpdate->bind_param("ii",$idUser,$wordId);
+               $prprUpdate->execute();
+               $prprUpdate->close();
+               echo "inserted wonGame";
+               }
+               if($game === "true")
+               {
+                  $prprUpdate = $conn->prepare("INSERT INTO statistics(lostGame,userId,wordId) VALUES(lostGame+1,?,?);");
                   $prprUpdate->bind_param("ii",$idUser,$wordId);
                   $prprUpdate->execute();
                   $prprUpdate->close();
-                  }
-                  if($game === "true")
-                  {
-                     $prprUpdate = $conn->prepare("INSERT INTO statistics(lostGame,userId,wordId) VALUES(lostGame+1,?,?);");
+                  echo "inserted lostGame";
+               }
+            }
+
+            if( $count > 0 )
+            {
+                  if( $game === "false" )
+                  {   
+                     $prprUpdate = $conn->prepare("UPDATE statistics SET wonGame = wonGame + 1 WHERE(userId = ? AND wordId = ?);");
                      $prprUpdate->bind_param("ii",$idUser,$wordId);
                      $prprUpdate->execute();
                      $prprUpdate->close();
+                     echo "wonGame updated";
                   }
-            }
-            if($row["COUNT(wordId)" > "0"])
-            {
-               if( $row["wordId"] == $wordId )
-               {
-                  if( password_verify($hmcuserId,$usrId) )
+                  if($game === "true")
                   {
-                     if( $game === "false" )
-                     {   
-                        $prprUpdate = $conn->prepare("UPDATE statistics SET wonGame = wonGame + 1 WHERE(userId = ? AND wordId = ?);");
-                        $prprUpdate->bind_param("ii",$idUser,$wordId);
-                        $prprUpdate->execute();
-                        $prprUpdate->close();
-                     }
-                     if($game === "true")
-                     {
-                        $prprUpdate = $conn->prepare("UPDATE statistics SET lostGame = lostGame + 1 WHERE(userId = ? AND wordId = ?);");
-                        $prprUpdate->bind_param("ii",$idUser,$wordId);
-                        $prprUpdate->execute();
-                        $prprUpdate->close();
-                     } 
-                  }
-               }
+                     $prprUpdate = $conn->prepare("UPDATE statistics SET lostGame = lostGame + 1 WHERE(userId = ? AND wordId = ?);");
+                     $prprUpdate->bind_param("ii",$idUser,$wordId);
+                     $prprUpdate->execute();
+                     $prprUpdate->close();
+                     echo "lostGame updated";
+                  } 
             }
-         } 
+         
+         
    }
 }
 
 
+               
+              
+               
+              
+                       
+               
+
 ?>
+
+
