@@ -27,7 +27,7 @@ getStatsEl.addEventListener("click",function(){
         leave.appendChild(levhed);
         
         const jsonArr = JSON.parse(data);
-        const columnArr = ["Word","Won game","Lost game"];
+        const columnArr = ["Slovo","Vyhraná hra","Prohraná hra","Úspěšnost"];
         let table = document.createElement("table");
         let row = document.createElement("tr");
         document.body.appendChild(table);
@@ -48,7 +48,9 @@ getStatsEl.addEventListener("click",function(){
             colu.innerHTML = jsonArr[i].wonGame;
             let col = document.createElement("th");
             col.innerHTML = jsonArr[i].lostGame;
-            r.appendChild(column);r.appendChild(colu);r.appendChild(col);
+            let cl = document.createElement("th");
+            cl.innerHTML = jsonArr[i].success;
+            r.appendChild(column);r.appendChild(colu);r.appendChild(col);r.appendChild(cl);
         }
         
     })
@@ -110,7 +112,7 @@ $(document).ready(function(){
 
 
 
-const alphabet = ["a","b","c","č","d","ď","e","f","g","h","i","j","k","l","m","n","ň","o","p","q","r","ř","s","š","t","ť","u","ů","ú","v","w","x","y","z","ž"];
+const alphabet = ["a","á","b","c","č","d","ď","e","ě","é","f","g","h","i","í","j","k","l","m","n","ň","o","p","q","r","ř","s","š","t","ť","u","ů","ú","v","w","x","y","ý","z","ž"];
 let letterbox = document.getElementById("letters");
 let buttonArr = [];
 let imgArr = ["podlaha.jpg","kopec.jpg","stojan.jpg","opratka.jpg","hlava.jpg","telo.jpg","nohy.jpg","rucedone.jpg"];
@@ -133,7 +135,7 @@ for( let i = 0 ; i < alphabet.length ; i++ )
     letterdivArr.push(divLet);
 }
 function getLetter(letter,headerLet){
-    getslovo = getslovo.toLowerCase();
+    
     let letterArray = returnIndex(getslovo,letter);
     var user = $.cookie('GYdbdiFHvFtmsjPshsinJHqPaZVmRBOk');
     
@@ -209,6 +211,7 @@ function getLetter(letter,headerLet){
         imgIndex++;
     }else
     {
+        console.log(letterArray);
         wordIndex += letterArray.length;
         for( let j = 0 ; j < letterArray.length ; j++)
         {
@@ -258,7 +261,10 @@ function returnIndex(word,letter)
     {
         if( !newArr.includes(arr[i]) )
         {
-            newArr.push(arr[i]);
+            if( arr[i] != -1 )
+            {
+                newArr.push(arr[i]);
+            }
         }
     }
     return newArr;
@@ -292,7 +298,7 @@ function showAddwordEl()
     backgrnd.appendChild(sbmitbtn);
     backgrnd.appendChild(btnPlayegajn);
     sbmitbtn.addEventListener("click",function(){
-        let inptval = inpt.value;
+        let inptval = inpt.value.toLowerCase();
 
         if( inptval.length > 0 & inptval.length < 34 )
         {

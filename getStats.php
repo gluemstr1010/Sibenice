@@ -27,8 +27,8 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" )
                         $word = $rou["word"];
                     }
                 }
-
-                array_push( $arr, array("word"=>$word,"wonGame"=>$row["wonGame"],"lostGame"=>$row["lostGame"])); 
+                $prctng = getPercentage($row["wonGame"],$row["lostGame"]);
+                array_push( $arr, array("word"=>$word,"wonGame"=>$row["wonGame"],"lostGame"=>$row["lostGame"],"success"=>$prctng)); 
                 // $objStat = new stdClass();
                 // $objStat->wonGame = $row["wonGame"];
                 // $objStat->lostGame = $row["lostGame"];
@@ -43,5 +43,14 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" )
     }
 }
 
+function getPercentage( $wonGames,$lostGames )
+{
+    settype($wonGames,"integer");
+    settype($lostGames,"integer");
+    $totalGames = $wonGames + $lostGames;
+    $percentage = (100 * $wonGames) / $totalGames;
+    $final = strval($percentage) . "%";
+    return $final;
+}
 
 ?>
