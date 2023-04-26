@@ -67,11 +67,17 @@ body{
     padding: 7px 15px 7px 15px;
     width: 10vw;
     height: 4vh;
-    font-size: 0.8vmax;
+    font-size: 1.2vmax;
     font-family: 'Josefin Sans', serif;
     border: none;
     background-color: white;
     border-radius: 16px;
+    cursor: pointer;
+    transition-duration: 0.45s;
+} 
+#form-bottom div button:hover
+{
+    box-shadow: 5px 5px 10px 10px #cfcecc;
 } 
 #form-bottom #link{
     width: fit-content;

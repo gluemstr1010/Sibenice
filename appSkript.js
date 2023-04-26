@@ -59,11 +59,32 @@ $(document).ready(function(){
     if(usr != undefined)
     {
         getMorestats.style.display = "initial";
+        let tp = document.getElementById("top");
+        let getBacc = document.createElement("div");
+        getBacc.setAttribute("id","getBacc");
+        tp.appendChild(getBacc);
+        getBacc.innerHTML = "Odhlásit se";
+        getBacc.addEventListener("click",function(){
+            location.replace("http://localhost/prace/sibenice/login.html");
+            $.removeCookie("GYdbdiFHvFtmsjPshsinJHqPaZVmRBOk");
+        });
+    }
+    if( usr == undefined )
+    {
+        let tp = document.getElementById("top");
+        let getBacc = document.createElement("div");
+        getBacc.setAttribute("id","getBacc");
+        tp.appendChild(getBacc);
+        getBacc.innerHTML = "Zaregistrovat se";
+        getBacc.addEventListener("click",function(){
+            location.replace("http://localhost:8080/prace/sibenice/registration.html");
+        })
     }
     $.get("/prace/sibenice/getWord.php", function(data,status){
         let tempArr = data.split("\n");
         getslovo = tempArr[0];
         getslovoId = tempArr[1];
+        console.log(getslovo);
         
     for( let i = 0; i < getslovo.length; i++ )
     {
@@ -117,7 +138,7 @@ let letterbox = document.getElementById("letters");
 let buttonArr = [];
 let imgArr = ["podlaha.jpg","kopec.jpg","stojan.jpg","opratka.jpg","hlava.jpg","telo.jpg","nohy.jpg","rucedone.jpg"];
 let imgIndex = 0;
-let wordIndex = 1;
+let wordIndex = 0;
 let letterdivArr = [];
 
 for( let i = 0 ; i < alphabet.length ; i++ )
@@ -138,7 +159,54 @@ function getLetter(letter,headerLet){
     
     let letterArray = returnIndex(getslovo,letter);
     var user = $.cookie('GYdbdiFHvFtmsjPshsinJHqPaZVmRBOk');
-    
+    console.log(wordIndex,getslovo.length, letterArray);
+
+    if( letterArray.length == 0 ) 
+    {   
+        while( imgIndex < imgArr.length  )
+        {
+            $("#imgToBePlaced").attr("src",imgArr[imgIndex]);
+            break;
+        }
+        for( let i = 0; i < letterdivArr.length; i++ )
+        {
+            let btnEl = buttonArr[i];
+            if( btnEl.innerHTML == letter )
+            {
+                btnEl.disabled = "true";
+                letterdivArr[i].classList.remove("stin");
+            }
+        }
+        imgIndex++;
+    }
+    if(letterArray.length > 0)
+    {
+        wordIndex += letterArray.length;
+        console.log(wordIndex);
+        for( let j = 0 ; j < letterArray.length ; j++)
+        {
+            for( let i = 0 ; i < wordlettersarray.length; i++ )
+            {
+                if( letterArray[j] == i )
+                {
+                    wordlettersarray[i].classList.remove("bttm");
+                    wordlettersarray[i].innerHTML = letter;
+                }
+            }
+        }
+        for( let k = 0 ; k < buttonArr.length; k++ )
+        {
+            let buttonEl = buttonArr[k];
+            let divletterEl = letterdivArr[k];
+
+            if( buttonEl.innerHTML == letter )
+            {
+                buttonEl.disabled = true;
+                divletterEl.classList.remove("stin");
+            }
+        }
+    }
+
     if(imgIndex === 7 )
     {
         onFinishedGameelement.style.display = "initial";
@@ -192,50 +260,6 @@ function getLetter(letter,headerLet){
           }
        }
 
-    if( letterArray.length == 0 ) 
-    {   
-        while( imgIndex < imgArr.length  )
-        {
-            $("#imgToBePlaced").attr("src",imgArr[imgIndex]);
-            break;
-        }
-        for( let i = 0; i < letterdivArr.length; i++ )
-        {
-            let btnEl = buttonArr[i];
-            if( btnEl.innerHTML == letter )
-            {
-                btnEl.disabled = "true";
-                letterdivArr[i].classList.remove("stin");
-            }
-        }
-        imgIndex++;
-    }else
-    {
-        console.log(letterArray);
-        wordIndex += letterArray.length;
-        for( let j = 0 ; j < letterArray.length ; j++)
-        {
-            for( let i = 0 ; i < wordlettersarray.length; i++ )
-            {
-                if( letterArray[j] == i )
-                {
-                    wordlettersarray[i].classList.remove("bttm");
-                    wordlettersarray[i].innerHTML = letter;
-                }
-            }
-        }
-        for( let k = 0 ; k < buttonArr.length; k++ )
-        {
-            let buttonEl = buttonArr[k];
-            let divletterEl = letterdivArr[k];
-
-            if( buttonEl.innerHTML == letter )
-            {
-                buttonEl.disabled = true;
-                divletterEl.classList.remove("stin");
-            }
-        }
-    }
 }
 function returnIndex(word,letter)
 {
