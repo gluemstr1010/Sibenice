@@ -6,9 +6,8 @@ let wonorlostheader = document.getElementById("wonorlost");
 let onFinishedGameelement = document.getElementById('onFinishedGame');
 let btnsel = document.getElementById("btnWhattoDo");
 var usr = $.cookie('GYdbdiFHvFtmsjPshsinJHqPaZVmRBOk');
-let getStatsEl = document.getElementById("getStats")
 let getMorestats = document.getElementById("getMoreStats");
-getStatsEl.addEventListener("click",function(){
+getMorestats.addEventListener("click",function(){
     let outer = document.getElementById("outer");
     document.body.removeChild(outer);
     $.post("/prace/sibenice/getStats.php",
@@ -17,18 +16,17 @@ getStatsEl.addEventListener("click",function(){
     },function(data,status){
         let leave = document.createElement("div");
         leave.setAttribute("id","statsLeave");
-        let levhed = document.createElement("h1");
-        levhed.innerHTML = "Hrát znovu";
-        levhed.addEventListener("click",function()
+        leave.innerHTML = "Hrát znovu";
+        leave.addEventListener("click",function()
         {
             location.replace("http://localhost:8080/prace/sibenice/app.html");
         })
         document.body.appendChild(leave);
-        leave.appendChild(levhed);
         
         const jsonArr = JSON.parse(data);
         const columnArr = ["Slovo","Vyhraná hra","Prohraná hra","Úspěšnost"];
         let table = document.createElement("table");
+        table.setAttribute("id","stats");
         let row = document.createElement("tr");
         document.body.appendChild(table);
         table.appendChild(row);
@@ -42,13 +40,13 @@ getStatsEl.addEventListener("click",function(){
         {
             let r = document.createElement("tr");
             table.appendChild(r);
-            let column = document.createElement("th");
+            let column = document.createElement("td");
             column.innerHTML = jsonArr[i].word;
-            let colu = document.createElement("th");
+            let colu = document.createElement("td");
             colu.innerHTML = jsonArr[i].wonGame;
-            let col = document.createElement("th");
+            let col = document.createElement("td");
             col.innerHTML = jsonArr[i].lostGame;
-            let cl = document.createElement("th");
+            let cl = document.createElement("td");
             cl.innerHTML = jsonArr[i].success;
             r.appendChild(column);r.appendChild(colu);r.appendChild(col);r.appendChild(cl);
         }
@@ -65,7 +63,7 @@ $(document).ready(function(){
         tp.appendChild(getBacc);
         getBacc.innerHTML = "Odhlásit se";
         getBacc.addEventListener("click",function(){
-            location.replace("http://localhost/prace/sibenice/login.html");
+            location.replace("http://localhost:8080/prace/sibenice/login.html");
             $.removeCookie("GYdbdiFHvFtmsjPshsinJHqPaZVmRBOk");
         });
     }

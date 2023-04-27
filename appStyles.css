@@ -9,34 +9,44 @@ body{
 }
 table
 {
-  border: 1px solid black;
+  border: none;
   width: max-content;
   height: max-content;
   transform: translate(20%,40%);
   font-size: 2vmax;
   background-color: white;
+  border-collapse: collapse;
+  font-family: 'Josefin Sans', sans-serif;
 }
-tr,th
+#stats th
 {
-  border: 1px solid black;
+    background-color: #B0B0B0 ;
+}
+th,td
+{
+  border-bottom:1px solid black;
   padding: 1vmax;
 }
 #getBacc
 {
-    border: 1px solid black;
+    border: none;
     width: 10vw;
     height: 5vh;
     transform: translate(35%,25%);
-    background-color: white;
+    background-color:#B0B0B0;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1vmax;
+    font-family: 'Josefin Sans', sans-serif;
+    border-radius: 16px;
+    transition-duration: 0.45s;
 }
 #getBacc:hover
 {
     text-decoration: underline;
     cursor: pointer;
+    box-shadow: 5px 5px 5px 5px #cfcecc;
 }
 #letters{
     border: 7px solid #fffaf0;
@@ -100,7 +110,7 @@ tr,th
     text-align: center;
 }
 #statForWord{
-    width: 18vw;
+    width: 20vw;
     height: 10vh;
     border: 1px solid black;
     transform: translate(115%,10%);
@@ -108,7 +118,11 @@ tr,th
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: white;
+    background-color: #B0B0B0;
+    border: none;
+    font-family: 'Josefin Sans', sans-serif;
+    padding-left: 1vmax;
+    border-radius: 16px;
 }
 #statForWord p{
     font-size: 1.2vmax;
@@ -116,40 +130,49 @@ tr,th
 #getMoreStats{
     position: fixed;
     width: 18vw;
-    height: 10vh;
+    height: 6vh;
     max-width: 22vw;
     max-height: 14vh;
-    border: 1px solid black;
+    border: none;
     right: 0;
     top: 0;
-    transform: translate(-35%,10%);
-    text-align: center;
+    transform: translate(-35%,25%);
     padding-left: 7px;
     padding-right: 7px;
-    font-size: 0.9vmax;
-    background-color: white;
+    font-size: 1.6vmax;
+    background-color: #B0B0B0;
     display: none;
+    border-radius: 16px;
+    font-family: 'Josefin Sans', sans-serif;
+    text-align: center;
+    padding-top: 1vmax ;
+    transition-duration: 0.45s;
 }
-#getMoreStats h1:hover{
+#getMoreStats:hover{
 text-decoration: underline;
 cursor: pointer;
+box-shadow: 2px 2px 10px 10px #cfcecc;
 }
 #statsLeave
 {
     width: 26vw;
     height: 8vw;
-    border: 1px solid black;
+    border: none;
+    border-radius: 16px;
     transform: translate(22%,20%);
-    font-size: 2vmax;
+    font-size: 3vmax;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: white;
+    background-color: #B0B0B0;
+    font-family: 'Josefin Sans', sans-serif;
+    transition-duration: 0.45s;
 }
-#statsLeave h1:hover
+#statsLeave:hover
 {
 text-decoration: underline;
 cursor: pointer;
+box-shadow: 5px 5px 5px 5px #cfcecc;
 }
 #onFinishedGame{
     width: 100vw;
