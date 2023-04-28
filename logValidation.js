@@ -3,10 +3,13 @@ btn.addEventListener("click",function(){
     validateLogin();
 })
 
+//getting submit button and adding event listener to which is calling function validateLogin
+
 function validateLogin(){
 
     var mail = $("input[name='mail']")[0].value;
     var password = $("input[name='password']")[0].value;
+    //get mail and password from inputs
 
     $.post("/prace/sibenice/logHandling.php",
     {
@@ -27,5 +30,6 @@ function validateLogin(){
             location.replace("http://localhost:8080/prace/sibenice/app.html");
         }
     });
+    //post mail and password to php login script, if login is valid then user redirected to app
 
 }

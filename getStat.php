@@ -9,7 +9,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     $keyId = "xsbIQQCbYowdJXcZhbnSgSmZsCdKJayQMdaNbQTi";
     $userId = $_POST["idUsr"];
     $word = $_POST["word"];
-
+    //get user cookie(id) and word + defining id key hmac
     $selectusrId = "SELECT u.userId FROM users AS u;";
     $res = mysqli_query($conn,$selectusrId);
       
@@ -22,6 +22,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
             $idUser = $row["userId"];
          }
       }
+      //getting user id from users
       $wordId;
       $selectwordId = "SELECT * FROM words;";
       $rs = mysqli_query($conn,$selectwordId);
@@ -32,13 +33,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
             $wordId = $rw["wordId"];
          }
       }
-
+      //getting word id from words
     $statQry = "SELECT * FROM statistics WHERE(userId = ? AND wordId = ?);";
     $prprqry = $conn->prepare($statQry);
     $prprqry->bind_param("ii",$idUser,$wordId);
     $prprqry->execute();
     $statres = $prprqry->get_result();
-
+    //getting result from prepare query statistics 
     while( $rou = $statres->fetch_array() )
     {
         $objStat = new stdClass();
@@ -47,6 +48,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         
         $jsonStat = json_encode($objStat);
         echo $jsonStat;
+        // creating object of an empty class and encoding it into json
     }
 
     }

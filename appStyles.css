@@ -265,50 +265,9 @@ box-shadow: 5px 5px 5px 5px #cfcecc;
     color: #ce2029;
     padding: 7px 10px 10px 7px;
     background-color: rgb(247, 162, 162);
-    animation: fadeOut 3.5s;
-    -webkit-animation: fadeOut 3.5s;
-  -moz-animation: fadeOut 3.5s;
-  -o-animation: fadeOut 3.5s;
-  -ms-animation: fadeOut 3.5s;
 }
 #btnWhattoDo span#success{
     color: #228b22;
     padding: 7px 10px 10px 7px;
     background-color:#98fb98;
-    animation: fadeOut 2s;
-    animation-delay: 4s;
-    -webkit-animation: fadeOut 2s;
-    -webkit-animation-delay: 4s;
-  -moz-animation: fadeOut 2s;
-  -o-animation: fadeOut 2s;
-  -ms-animation: fadeOut 2s;
-}
-@keyframes fadeOut {
-    1% { opacity: 1; visibility: visible;}
-    99% { opacity: 0; visibility: visible;}
-    100% { opacity: 0; visibility: hidden; }
-}
-  
-@-moz-keyframes fadeOut {
-    1% { opacity: 1; visibility: visible;}
-    99% { opacity: 0; visibility: visible;}
-    100% { opacity: 0; visibility: hidden; }
-}
-  
-@-webkit-keyframes fadeOut {
-    1% { opacity: 1; visibility: visible;}
-    99% { opacity: 0; visibility: visible;}
-    100% { opacity: 0; visibility: hidden; }
-}
-  
-@-o-keyframes fadeOut {
-    1% { opacity: 1; visibility: visible;}
-    99% { opacity: 0; visibility: visible;}
-    100% { opacity: 0; visibility: hidden; }
-}
-  
-@-ms-keyframes fadeOut {
-    1% { opacity: 1; visibility: visible;}
-    99% { opacity: 0; visibility: visible;}
-    100% { opacity: 0; visibility: hidden; }
 }

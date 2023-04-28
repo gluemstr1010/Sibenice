@@ -12,6 +12,7 @@ if( $_SERVER["REQUEST_METHOD"] == "GET" )
         echo $row["word"] . "\n";
         echo $row["wordId"];
     }
+    //send random word and wordId from database
 }
 
 ?>

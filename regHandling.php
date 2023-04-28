@@ -4,7 +4,7 @@ include "connection.php";
 $isEmailValid = 3;
 $keyPass = "AOphRtRnnjjKuqevClqyYkOsKaZzSGkftej";
 $keyId = "xsbIQQCbYowdJXcZhbnSgSmZsCdKJayQMdaNbQTi";
-$keyMail = "GKSmduCNnsaIAbqtuZwKxhXxBbVVeygn";
+// defining keys hash to password and userId
 
 if( $_SERVER["REQUEST_METHOD"] == "POST" )
 {
@@ -25,7 +25,7 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" )
     {
       $isEmailValid = 1;
     }
-    
+    //checking if email exits, if not mail is valid , if yes script ends echo mailnotvalid
 }
 
 if( $isEmailValid === 1 )
@@ -59,7 +59,7 @@ if( $isEmailValid === 1 )
     setcookie( "GYdbdiFHvFtmsjPshsinJHqPaZVmRBOk", $hshId, time() + (86400),"/" );
 
     echo "regMade";
-    
+    // inserting user email with hashed user password, getting user id, hashing it, inserting it into id table and setting a cookie with that id 
 }
 
 

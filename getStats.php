@@ -9,8 +9,8 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" )
         $userId = $_POST["idUser"];
         $statQry = "SELECT * FROM statistics;";
         $result = mysqli_query($conn,$statQry);
-
         $arr = array();
+        //defining key for password hmac, user id from ids(cookie) and statistics query
         while( $row = $result->fetch_array() )
         {
             $hmcId = hash_hmac("sha256",$row["userId"],$keyId);
@@ -29,17 +29,11 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" )
                 }
                 $prctng = getPercentage($row["wonGame"],$row["lostGame"]);
                 array_push( $arr, array("word"=>$word,"wonGame"=>$row["wonGame"],"lostGame"=>$row["lostGame"],"success"=>$prctng)); 
-                // $objStat = new stdClass();
-                // $objStat->wonGame = $row["wonGame"];
-                // $objStat->lostGame = $row["lostGame"];
-                // $objStat->wordId = $row["wordId"];
-
-                // $jsonStat = json_encode($objStat);
-
-                // echo $jsonStat;
             }
+            // check if user(cookie) equals userId in statistics, if yes select word for given userid from words, push into array above values then encode it with json
         }
         echo json_encode($arr);
+        // return json with won games, lostgames and percentage of successful games for given word 
     }
 }
 
@@ -52,5 +46,6 @@ function getPercentage( $wonGames,$lostGames )
     $final = strval($percentage) . "%";
     return $final;
 }
+//function that returns percentage of succeful games in string
 
 ?>

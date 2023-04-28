@@ -18,6 +18,8 @@ $hmc = hash_hmac("sha256",$password,$key);
 $slctuserId = "SELECT userId, userMail FROM users;";
 $res = mysqli_query($conn,$slctuserId);
 
+// prepare qry for user mail, qry for user id , defining user mail and password, defining keys for userId  and password + password hmac
+
 $idUser;
 
 while( $row = $res->fetch_array() )
@@ -27,7 +29,7 @@ while( $row = $res->fetch_array() )
         $idUser = $row["userId"];
     }
 }
-
+//defining hmac
 while( $row = $result->fetch_array() )
 {
     if( password_verify($hmc,$row["userPass"]) )
@@ -49,6 +51,7 @@ while( $row = $result->fetch_array() )
     else{
         echo "passwordsdonotmatch";
     }
+    //tell if passwords match, if not echo passwordsdonotmatch, if yes select id from ids where hash userid and compare id from ids, set id from ids to as cookie value
 }
 
 }
